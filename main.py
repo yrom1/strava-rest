@@ -46,7 +46,6 @@ def main():
     r = r.json()
 
     df = pd.json_normalize(r)
-    df = pd.read_pickle("test")
     df = df[df["type"] == "Run"]
     df = df[["start_date_local", "distance"]]  # distance is in meters
     df = df.groupby(["start_date_local"]).sum()
