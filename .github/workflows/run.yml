@@ -1,5 +1,6 @@
 name: Strava running graph
 on:
+  push:
   schedule:
     - cron: "0 * * * *"
 jobs:
