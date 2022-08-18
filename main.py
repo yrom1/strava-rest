@@ -1,34 +1,47 @@
 import datetime
 import json
 import os
+import subprocess
+from textwrap import dedent
 
 import pandas as pd
 import requests
 
 
-url = f'http://www.strava.com/oauth/authorize?client_id={os.environ["STRAVA_CLIENT_ID"]}&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=profile:read_all,activity:read_all'
-print(url)
-
-
 def main():
-    response = requests.post(
-        url="https://www.strava.com/oauth/token",
-        data={
-            "client_id": os.environ["STRAVA_CLIENT_ID"],
-            "client_secret": os.environ["STRAVA_CLIENT_SECRET"],
-            "code": os.environ["STRAVA_AUTH_CODE"],
-            "grant_type": "authorization_code",
-        },
+    # TODO refresh token can change need to update it
+    refresh = dedent(
+        f"""curl -X POST https://www.strava.com/api/v3/oauth/token \
+    -d client_id={os.environ['STRAVA_CLIENT_ID']} \
+    -d client_secret={os.environ['STRAVA_CLIENT_SECRET']} \
+    -d grant_type=refresh_token \
+    -d refresh_token={os.environ['STRAVA_REFRESH_TOKEN']}"""
     )
 
-    with open("strava_tokens.json", "w") as f:
-        json.dump(response.json(), f)
+    refresh_response = json.loads(
+        subprocess.run(refresh, shell=True, capture_output=True).stdout.decode("utf-8")
+    )
+    access_token = refresh_response["access_token"]
+    refresh_token = refresh_response["refresh_token"]
 
-    with open("strava_tokens.json") as f:
-        strava_tokens = json.load(f)
+    # response = requests.post(
+    #     url="https://www.strava.com/oauth/token",
+    #     data={
+    #         "client_id": os.environ["STRAVA_CLIENT_ID"],
+    #         "client_secret": os.environ["STRAVA_CLIENT_SECRET"],
+    #         "code": os.environ["STRAVA_AUTH_CODE"],
+    #         "grant_type": "authorization_code",
+    #     },
+    # )
+
+    # with open("strava_tokens.json", "w") as f:
+    #     json.dump(response.json(), f)
+
+    # with open("strava_tokens.json") as f:
+    #     strava_tokens = json.load(f)
 
     url = "https://www.strava.com/api/v3/activities"
-    access_token = strava_tokens["access_token"]
+    # access_token = strava_tokens["access_token"]
     r = requests.get(url + "?access_token=" + access_token)  # first page of activities
     r = r.json()
 
@@ -66,3 +79,4 @@ def main():
 
 
 DATES, KMS = main()
+print(DATES, KMS)

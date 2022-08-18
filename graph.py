@@ -57,7 +57,7 @@ def save_plot(x, y):
     plt.grid(True, color=BLACK, alpha=GRID_ALPHA)
     plt.ylabel("Sum Distance (km)", fontsize=FONTSIZE)
     plt.title(
-        f"Stava Runs",
+        f"Strava Runs",
         color=BLACK,
         fontsize=FONTSIZE,
     )
