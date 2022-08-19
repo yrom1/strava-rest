@@ -60,6 +60,7 @@ def main():
     2022-08-18T11:05:11Z     249.9  2022-08-18T11:05:11Z
     """
 
+    # TODO these days are in utc make it est
     dates_raw = [x[:10] for x in list(df["start_date_local"])]
     kms_raw = [round(x / 1000, 2) for x in list(df["distance"])]
 
