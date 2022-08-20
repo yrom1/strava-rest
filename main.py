@@ -46,19 +46,11 @@ def main():
     r = r.json()
 
     df = pd.json_normalize(r)
-    df = df[df["type"] == "Run"]
-    df = df[["start_date_local", "distance"]]  # distance is in meters
-    df = df.groupby(["start_date_local"]).sum()
-    df["start_date_local"] = df.index
-
-    # TODO better way to do this?
-    """
-    >>> df['start_date_local'] = df.index
-    >>> df
-                        distance      start_date_local
-    start_date_local
-    2022-08-18T11:05:11Z     249.9  2022-08-18T11:05:11Z
-    """
+    df = (
+        df[df["type"] == "Run"][["distance", "start_date_local"]]
+        .groupby(["start_date_local"], as_index=False)
+        .sum()
+    )  # distance is in meters
 
     # TODO these days are in utc make it est
     dates_raw = [x[:10] for x in list(df["start_date_local"])]
