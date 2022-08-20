@@ -55,7 +55,7 @@ def main():
     df["start_date_local"] = pd.to_datetime(df["start_date_local"])
     # TODO this ignores daylight savings
     df["start_date_local"] = df["start_date_local"].dt.tz_convert("US/Eastern")
-    dates_raw = [x[:10] for x in list(df["start_date_local"])]
+    dates_raw = [x.isoformat()[:10] for x in list(df["start_date_local"])]
     kms_raw = [round(x / 1000, 2) for x in list(df["distance"])]
 
     today = datetime.datetime.today()
