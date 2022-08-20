@@ -60,10 +60,7 @@ def main():
 
     today = datetime.datetime.today()
     dates = [today - datetime.timedelta(days=x) for x in range(14)]
-    # TODO whats the actual function in datetime for this?
-    dates_counter = {
-        f"{x.year}-{str(x.month).zfill(2)}-{str(x.day).zfill(2)}": 0 for x in dates
-    }
+    dates_counter = {x.strftime("%Y-%m-%d"): 0 for x in dates}
 
     for i, date in enumerate(dates_raw):
         if date in dates_counter:
