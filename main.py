@@ -52,7 +52,9 @@ def main():
         .sum()
     )  # distance is in meters
 
-    # TODO these days are in utc make it est
+    df["start_time_local"] = pd.to_datetime(df["start_time_local"])
+    # TODO this ignores daylight savings
+    df["start_local_time"] = df["start_local_time"].dt.tz_convert("US/Eastern")
     dates_raw = [x[:10] for x in list(df["start_date_local"])]
     kms_raw = [round(x / 1000, 2) for x in list(df["distance"])]
 
