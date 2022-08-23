@@ -65,4 +65,4 @@ def save_plot(x, y):
 
 
 if __name__ == "__main__":
-    save_plot(DATES, KMS)
+    save_plot(DATES[::-1], KMS[::-1])
