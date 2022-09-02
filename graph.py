@@ -13,7 +13,7 @@ from main import DATES, KMS
 DATE_FORMAT = r"%Y-%m-%d"
 DPI = 300
 GRID_ALPHA = 0.05
-ASPECT_RATIO = 0.15
+ASPECT_RATIO = 0.20
 # FONT_ENTRY = font_manager.FontEntry(fname="SFMono-Regular.otf", name="SFMono-Regular")
 # font_manager.fontManager.ttflist.insert(0, FONT_ENTRY)
 # matplotlib.rcParams["font.family"] = FONT_ENTRY.name
@@ -36,6 +36,7 @@ def format_dates(dates: list[str]):
 
 
 def save_plot(x, y):
+    matplotlib.rc("font", **{"size": 18})
     # https://olgabotvinnik.com/blog/prettyplotlib-painlessly-create-beautiful-matplotlib/
     # plt.style.use("grayscale")
     # mpl.rcParams["font.family"] = FONT
