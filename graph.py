@@ -1,8 +1,10 @@
+import datetime as dt
+
 import matplotlib
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
-import datetime as dt
+
 from main import DATES, KMS
 
 # FONT_FILENAME = "SFMono-Regular.ttf"
@@ -78,4 +80,15 @@ def save_plot(x, y):
 
 
 if __name__ == "__main__":
+    DAYS_SINCE_LAST_RUN: str
+    for i, distance in enumerate(KMS):
+        if distance > 0:
+            DAYS_SINCE_LAST_RUN = str(i)
+            break
+    else:
+        DAYS_SINCE_LAST_RUN = "14 +"
+
+    with open("DAYS_SINCE_LAST_RUN", "w") as f:
+        f.write(DAYS_SINCE_LAST_RUN)
+
     save_plot(format_dates(DATES[::-1]), KMS[::-1])
