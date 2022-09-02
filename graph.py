@@ -36,7 +36,7 @@ def format_dates(dates: list[str]):
 
 
 def save_plot(x, y):
-    matplotlib.rc("font", **{"size": 18})
+    matplotlib.rc("font", **{"size": 20})
     # https://olgabotvinnik.com/blog/prettyplotlib-painlessly-create-beautiful-matplotlib/
     # plt.style.use("grayscale")
     # mpl.rcParams["font.family"] = FONT
