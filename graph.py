@@ -71,8 +71,10 @@ def save_plot(x, y):
     # plt.grid(True, color=BLACK, alpha=GRID_ALPHA)
     plt.ylabel("Sum Distance (km)")
     # , fontsize=FONTSIZE)
+    with open("DAYS_SINCE_LAST_RUN", "r") as f:
+        DAYS_SINCE_LAST_RUN = int(f.read())
     plt.title(
-        f"Strava Runs",
+        f"{DAYS_SINCE_LAST_RUN} Days Since Last Strava Run",
         # color=BLACK,
         # fontsize=FONTSIZE,
     )
