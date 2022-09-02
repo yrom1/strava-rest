@@ -2,7 +2,7 @@ import matplotlib
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
-
+import datetime as dt
 from main import DATES, KMS
 
 # FONT_FILENAME = "SFMono-Regular.ttf"
@@ -29,6 +29,10 @@ ASPECT_RATIO = 0.15
 #     xrange = xvals[1] - xvals[0]
 #     yrange = yvals[1] - yvals[0]
 #     plt.gca().set_aspect(ratio * (xrange / yrange), adjustable="box")
+
+
+def format_dates(dates: list[str]):
+    return [dt.datetime.strptime(date, DATE_FORMAT) for date in dates]
 
 
 def save_plot(x, y):
@@ -73,4 +77,4 @@ def save_plot(x, y):
 
 
 if __name__ == "__main__":
-    save_plot(DATES[::-1], KMS[::-1])
+    save_plot(format_dates(DATES[::-1]), KMS[::-1])
