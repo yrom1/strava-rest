@@ -3,6 +3,7 @@ import json
 import os
 import subprocess
 from textwrap import dedent
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import requests
@@ -58,7 +59,7 @@ def main():
     dates_raw = [x.isoformat()[:10] for x in list(df["start_date_local"])]
     kms_raw = [round(x / 1000, 2) for x in list(df["distance"])]
 
-    today = datetime.datetime.today()
+    today = datetime.datetime.now(ZoneInfo("US/Eastern"))
     dates = [today - datetime.timedelta(days=x) for x in range(14)]
     dates_counter = {x.strftime("%Y-%m-%d"): 0 for x in dates}
 
