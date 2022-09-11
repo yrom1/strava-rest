@@ -7,6 +7,7 @@ from zoneinfo import ZoneInfo
 
 import pandas as pd
 import requests
+from mypandas import MyPandas
 
 
 def main():
@@ -72,3 +73,13 @@ def main():
 
 DATES, KMS = main()
 print(DATES, KMS)
+df = pd.DataFrame({"date": DATES, "kms": KMS})
+query = """
+SELECT SUM(kms)
+FROM df
+WHERE month(date) = month(now());
+"""
+with open("KMS_RAN_THIS_MONTH", "w") as f:
+    f.write(
+        str(int(MyPandas("mysql://root:root@localhost")(query, locals()).values[0]))
+    )
