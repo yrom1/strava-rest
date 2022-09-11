@@ -73,8 +73,12 @@ def save_plot(x, y):
     # , fontsize=FONTSIZE)
     with open("DAYS_SINCE_LAST_RUN", "r") as f:
         DAYS_SINCE_LAST_RUN = int(f.read())
+
+    STRAVA_TITLE = f"{DAYS_SINCE_LAST_RUN} {'Day' if DAYS_SINCE_LAST_RUN == 1 else 'Days'} Since Last Strava Run"
+    with open("STRAVA_TITLE", "w") as f:
+        f.write(STRAVA_TITLE)
     plt.title(
-        f"{DAYS_SINCE_LAST_RUN} {'Day' if DAYS_SINCE_LAST_RUN == 1 else 'Days'} Since Last Strava Run",
+        STRAVA_TITLE,
         # color=BLACK,
         # fontsize=FONTSIZE,
     )
