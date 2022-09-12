@@ -4,9 +4,13 @@ import matplotlib
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
+import requests
 
 from main import DATES, KMS
 
+FONTSIZE = requests.get(
+    "https://raw.githubusercontent.com/yrom1/yrom1/main/FONTSIZE"
+).text
 # FONT_FILENAME = "SFMono-Regular.ttf"
 # FONT = FONT_FILENAME[:-4]
 # FONTSIZE = 9
@@ -38,7 +42,7 @@ def format_dates(dates: list[str]):
 
 
 def save_plot(x, y):
-    matplotlib.rc("font", **{"size": 20})
+    matplotlib.rc("font", **{"size": FONTSIZE})
     # https://olgabotvinnik.com/blog/prettyplotlib-painlessly-create-beautiful-matplotlib/
     # plt.style.use("grayscale")
     # mpl.rcParams["font.family"] = FONT
