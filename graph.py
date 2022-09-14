@@ -3,8 +3,9 @@ import datetime as dt
 import matplotlib
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib import font_manager
+import pandas as pd
 import requests
+from matplotlib import font_manager
 
 from main import DATES, KMS
 
@@ -101,4 +102,8 @@ if __name__ == "__main__":
     with open("DAYS_SINCE_LAST_RUN", "w") as f:
         f.write(DAYS_SINCE_LAST_RUN)
 
-    save_plot(format_dates(DATES[::-1]), KMS[::-1])
+    DATES, KMS = DATES[::-1], KMS[::-1]
+
+    df = pd.DataFrame({"date": DATES, "value": KMS})
+    df.to_json("plot.json")
+    save_plot(format_dates(DATES), KMS)
