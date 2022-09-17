@@ -95,13 +95,12 @@ if __name__ == "__main__":
     DAYS_SINCE_LAST_RUN: str
     for i, distance in enumerate(KMS):
         if distance > 0:
-            DAYS_SINCE_LAST_RUN = str(i)
+            DAYS_SINCE_LAST_RUN = i
             break
     else:
-        DAYS_SINCE_LAST_RUN = "14 +"
+        DAYS_SINCE_LAST_RUN = 14
 
-    with open("DAYS_SINCE_LAST_RUN", "w") as f:
-        f.write(DAYS_SINCE_LAST_RUN)
+    Cloud('kpiV1')["DAYS_SINCE_LAST_RUN"] = DAYS_SINCE_LAST_RUN
 
     DATES, KMS = DATES[::-1], KMS[::-1]
 
@@ -109,4 +108,3 @@ if __name__ == "__main__":
     df.to_json("plot.json")
     with open('plot.json', 'r') as f:
         Cloud('plotsV2')['strava'] = f.read()
-    save_plot(format_dates(DATES), KMS)
