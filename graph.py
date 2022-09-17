@@ -1,5 +1,6 @@
 import datetime as dt
 
+from cloud_dictionary import Cloud
 import matplotlib
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -106,4 +107,6 @@ if __name__ == "__main__":
 
     df = pd.DataFrame({"date": DATES, "value": KMS})
     df.to_json("plot.json")
+    with open('plot.json', 'r') as f:
+        Cloud('plotsV2')['strava'] = f.read()
     save_plot(format_dates(DATES), KMS)
