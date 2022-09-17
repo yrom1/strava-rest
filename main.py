@@ -62,7 +62,7 @@ def main():
     kms_raw = [round(x / 1000, 2) for x in list(df["distance"])]
 
     today = datetime.datetime.now(ZoneInfo("US/Eastern"))
-    dates = [today - datetime.timedelta(days=x) for x in range(14)]
+    dates = [today - datetime.timedelta(days=x) for x in range(30)]
     dates_counter = {x.strftime("%Y-%m-%d"): 0 for x in dates}
 
     for i, date in enumerate(dates_raw):
@@ -81,3 +81,4 @@ FROM df
 WHERE month(date) = month(now());
 """
 Cloud('kpiV1')["KMS_RAN_THIS_MONTH"] = int(MyPandas("mysql://root:root@localhost")(query, locals()).values[0])
+DATES, KMS = DATES[:14], KMS[:14]
