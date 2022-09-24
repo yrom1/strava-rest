@@ -5,9 +5,9 @@ import subprocess
 from textwrap import dedent
 from zoneinfo import ZoneInfo
 
-from cloud_dictionary import Cloud
 import pandas as pd
 import requests
+from cloud_dictionary import Cloud
 from mypandas import MyPandas
 
 
@@ -80,5 +80,7 @@ SELECT SUM(kms)
 FROM df
 WHERE month(date) = month(now());
 """
-Cloud('kpiV1')["KMS_RAN_THIS_MONTH"] = int(MyPandas("mysql://root:root@localhost")(query, locals()).values[0])
+Cloud("kpiV1")["KMS_RAN_THIS_MONTH"] = int(
+    MyPandas("mysql://root:root@localhost")(query, locals()).values[0]
+)
 DATES, KMS = DATES[:14], KMS[:14]

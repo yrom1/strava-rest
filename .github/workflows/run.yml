@@ -8,6 +8,9 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  RDS_ENDPOINT: ${{ secrets.RDS_ENDPOINT }}
+  RDS_USER: ${{ secrets.RDS_USER }}
+  RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
 
 jobs:
   update:
@@ -15,12 +18,16 @@ jobs:
     steps:
       - name: Get source
         uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
       - name: Get Python
         uses: actions/setup-python@v2
         with:
           python-version: "3.10"
       - name: Start MySQL
         run: sudo systemctl start mysql.service # user:root password:root
+      - name: Symbolic link
+        run: ln -s star-schema/stardb.py stardb.py
       - name: Pip install
         run: pip install -r requirements.txt
       - name: Update graph

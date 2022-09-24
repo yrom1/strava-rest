@@ -3,3 +3,4 @@ pandas
 requests
 mypandas
 cloud_dictionary
+mysql-connector-python
