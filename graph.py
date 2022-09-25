@@ -23,4 +23,4 @@ if __name__ == "__main__":
         Cloud("plotsV2")["strava"] = f.read()
 
     with StarSchema() as rds:
-        rds.insert_dimension("dimension_strava", [KMS[0]])
+        rds.insert_dimension("dimension_strava", [KMS[-1]])
